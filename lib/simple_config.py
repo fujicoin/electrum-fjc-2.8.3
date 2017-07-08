@@ -8,7 +8,7 @@ from util import user_dir, print_error, print_msg, print_stderr, PrintError
 
 from bitcoin import MAX_FEE_RATE, FEE_TARGETS
 
-SYSTEM_CONFIG_PATH = "/etc/electrum.conf"
+SYSTEM_CONFIG_PATH = "/etc/electrum-fjc.conf"
 
 config = None
 
@@ -168,7 +168,7 @@ class SimpleConfig(PrintError):
         new_path = os.path.join(self.path, "wallets", "default_wallet")
 
         # default path in pre 1.9 versions
-        old_path = os.path.join(self.path, "electrum.dat")
+        old_path = os.path.join(self.path, "electrum-fjc.dat")
         if os.path.exists(old_path) and not os.path.exists(new_path):
             os.rename(old_path, new_path)
 
@@ -227,14 +227,14 @@ class SimpleConfig(PrintError):
         return len(self.fee_estimates)==4
 
     def is_dynfee(self):
-        return self.get('dynamic_fees', True)
+        return self.get('dynamic_fees', False)
 
     def fee_per_kb(self):
         dyn = self.is_dynfee()
         if dyn:
             fee_rate = self.dynfee(self.get('fee_level', 2))
         else:
-            fee_rate = self.get('fee_per_kb', self.max_fee_rate()/2)
+            fee_rate = self.get('fee_per_kb', self.max_fee_rate()/10)
         return fee_rate
 
     def get_video_device(self):
@@ -245,13 +245,13 @@ class SimpleConfig(PrintError):
 
 
 def read_system_config(path=SYSTEM_CONFIG_PATH):
-    """Parse and return the system config settings in /etc/electrum.conf."""
+    """Parse and return the system config settings in /etc/electrum-fjc.conf."""
     result = {}
     if os.path.exists(path):
         try:
             import ConfigParser
         except ImportError:
-            print "cannot parse electrum.conf. please install ConfigParser"
+            print "cannot parse electrum-fjc.conf. please install ConfigParser"
             return
 
         p = ConfigParser.ConfigParser()
@@ -265,7 +265,7 @@ def read_system_config(path=SYSTEM_CONFIG_PATH):
     return result
 
 def read_user_config(path):
-    """Parse and store the user config settings in electrum.conf into user_config[]."""
+    """Parse and store the user config settings in electrum-fjc.conf into user_config[]."""
     if not path:
         return {}
     config_path = os.path.join(path, "config")

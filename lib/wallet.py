@@ -781,14 +781,14 @@ class Abstract_Wallet(PrintError):
         return status, status_str
 
     def relayfee(self):
-        RELAY_FEE = 5000
-        MAX_RELAY_FEE = 50000
+        RELAY_FEE = bitcoin.MIN_RELAY_TX_FEE
+        MAX_RELAY_FEE = 10 * RELAY_FEE
         f = self.network.relay_fee if self.network and self.network.relay_fee else RELAY_FEE
         return min(f, MAX_RELAY_FEE)
 
     def dust_threshold(self):
         # Change <= dust threshold is added to the tx fee
-        return 182 * 3 * self.relayfee() / 1000
+        return DUST_SOFT_LIMIT
 
     def make_unsigned_transaction(self, inputs, outputs, config, fixed_fee=None, change_addr=None):
         # check outputs
@@ -797,7 +797,7 @@ class Abstract_Wallet(PrintError):
             _type, data, value = o
             if _type == TYPE_ADDRESS:
                 if not is_address(data):
-                    raise BaseException("Invalid bitcoin address:" + data)
+                    raise BaseException("Invalid Fujicoin address:" + data)
             if value == '!':
                 if i_max is not None:
                     raise BaseException("More than one output set to spend max")
@@ -1171,7 +1171,7 @@ class Abstract_Wallet(PrintError):
         if not r:
             return
         out = copy.copy(r)
-        out['URI'] = 'bitcoin:' + addr + '?amount=' + util.format_satoshis(out.get('amount'))
+        out['URI'] = 'fujicoin:' + addr + '?amount=' + util.format_satoshis(out.get('amount'))
         status, conf = self.get_request_status(addr)
         out['status'] = status
         if conf is not None:

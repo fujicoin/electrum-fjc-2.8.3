@@ -1,4 +1,4 @@
-Electrum - Lightweight Bitcoin client
+Electrum-fjc  -  Lightweight Fujicoin client 
 =====================================
 
 ::

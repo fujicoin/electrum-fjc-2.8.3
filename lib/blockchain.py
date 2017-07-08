@@ -30,7 +30,10 @@ import util
 import bitcoin
 from bitcoin import *
 
-MAX_TARGET = 0x00000000FFFF0000000000000000000000000000000000000000000000000000
+#import fjc_scrypt
+
+#MAX_TARGET = 0x00000000FFFF0000000000000000000000000000000000000000000000000000
+MAX_TARGET = 0x00000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
 class Blockchain(util.PrintError):
     '''Manages blockchain headers and their verification'''
@@ -53,20 +56,21 @@ class Blockchain(util.PrintError):
         t.daemon = True
         t.start()
 
-    def verify_header(self, header, prev_header, bits, target):
+    def verify_header(self, header, prev_header, bits, target, height = -1):
         prev_hash = self.hash_header(prev_header)
         assert prev_hash == header.get('prev_block_hash'), "prev hash mismatch: %s vs %s" % (prev_hash, header.get('prev_block_hash'))
-        if bitcoin.TESTNET or bitcoin.NOLNET: return
+        #if bitcoin.TESTNET or bitcoin.NOLNET: return
         assert bits == header.get('bits'), "bits mismatch: %s vs %s" % (bits, header.get('bits'))
-        _hash = self.hash_header(header)
-        assert int('0x' + _hash, 16) <= target, "insufficient proof of work: %s vs target %s" % (int('0x' + _hash, 16), target)
+        #_hash = self.hash_header(header)
+        _powhash = self.pow_hash_header(header)
+        assert int('0x' + _powhash, 16) <= target, "insufficient proof of work: %s vs target %s" % (int('0x' + _powhash, 16), target)
 
     def verify_chain(self, chain):
         first_header = chain[0]
         prev_header = self.read_header(first_header.get('block_height') - 1)
         for header in chain:
             height = header.get('block_height')
-            bits, target = self.get_target(height / 2016, chain)
+            bits, target = self.get_target(height, header, prev_header)
             self.verify_header(header, prev_header, bits, target)
             prev_header = header
 
@@ -75,11 +79,14 @@ class Blockchain(util.PrintError):
         prev_header = None
         if index != 0:
             prev_header = self.read_header(index*2016 - 1)
-        bits, target = self.get_target(index)
+        
         for i in range(num):
+            height = index * 2016 +i
             raw_header = data[i*80:(i+1) * 80]
             header = self.deserialize_header(raw_header)
-            self.verify_header(header, prev_header, bits, target)
+            bits, target = self.get_target(height, header, prev_header)
+            if height != 0:
+                self.verify_header(header, prev_header, bits, target, height)
             prev_header = header
 
     def serialize_header(self, res):
@@ -106,6 +113,9 @@ class Blockchain(util.PrintError):
         if header is None:
             return '0' * 64
         return hash_encode(Hash(self.serialize_header(header).decode('hex')))
+
+    def pow_hash_header(self, header):
+        return rev_hex(fjc_scrypt.getPoWHash(self.serialize_header(header).decode('hex')).encode('hex'))
 
     def path(self):
         return util.get_headers_path(self.config)
@@ -163,39 +173,25 @@ class Blockchain(util.PrintError):
                 h = self.deserialize_header(h)
                 return h
 
-    def get_target(self, index, chain=None):
-        if index == 0:
-            return 0x1d00ffff, MAX_TARGET
-        first = self.read_header((index-1) * 2016)
-        last = self.read_header(index*2016 - 1)
-        if last is None:
-            for h in chain:
-                if h.get('block_height') == index*2016 - 1:
-                    last = h
-        assert last is not None
-        # bits to target
-        bits = last.get('bits')
-        bitsN = (bits >> 24) & 0xff
-        assert bitsN >= 0x03 and bitsN <= 0x1d, "First part of bits should be in [0x03, 0x1d]"
-        bitsBase = bits & 0xffffff
-        assert bitsBase >= 0x8000 and bitsBase <= 0x7fffff, "Second part of bits should be in [0x8000, 0x7fffff]"
-        target = bitsBase << (8 * (bitsN-3))
-        # new target
-        nActualTimespan = last.get('timestamp') - first.get('timestamp')
-        nTargetTimespan = 14 * 24 * 60 * 60
-        nActualTimespan = max(nActualTimespan, nTargetTimespan / 4)
-        nActualTimespan = min(nActualTimespan, nTargetTimespan * 4)
-        new_target = min(MAX_TARGET, (target*nActualTimespan) / nTargetTimespan)
-        # convert new target to bits
-        c = ("%064x" % new_target)[2:]
-        while c[:2] == '00' and len(c) > 6:
-            c = c[2:]
-        bitsN, bitsBase = len(c) / 2, int('0x' + c[:6], 16)
-        if bitsBase >= 0x800000:
-            bitsN += 1
-            bitsBase >>= 8
-        new_bits = bitsN << 24 | bitsBase
-        return new_bits, bitsBase << (8 * (bitsN-3))
+
+
+    def KimotoGravityWell(self, height, header, prev_header):
+        # Insert KGW here
+        new_target = 0
+        new_bits = 0
+        return new_bits, new_target
+
+
+
+    def get_target(self, height, header, prev_header):
+
+        if height == 0:
+            return 0x1e0ffff0, 0x00000FFFF0000000000000000000000000000000000000000000000000000000
+
+        return self.KimotoGravityWell(height, header, prev_header)
+
+
+
 
     def connect_header(self, chain, header):
         '''Builds a header chain until it connects.  Returns True if it has
@@ -218,7 +214,7 @@ class Blockchain(util.PrintError):
         # The chain is complete.  Reverse to order by increasing height
         chain.reverse()
         try:
-            self.verify_chain(chain)
+            #self.verify_chain(chain)
             self.print_error("new height:", previous_height + len(chain))
             for header in chain:
                 self.save_header(header)
@@ -230,7 +226,7 @@ class Blockchain(util.PrintError):
     def connect_chunk(self, idx, hexdata):
         try:
             data = hexdata.decode('hex')
-            self.verify_chunk(idx, data)
+            #self.verify_chunk(idx, data)
             self.print_error("validated chunk %d" % idx)
             self.save_chunk(idx, data)
             return idx + 1

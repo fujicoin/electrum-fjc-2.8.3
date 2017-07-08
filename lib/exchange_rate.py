@@ -87,6 +87,49 @@ class ExchangeBase(PrintError):
         return [str(a) for (a, b) in rates.iteritems() if b is not None]
 
 
+
+
+class Bleutrade(ExchangeBase):
+    def get_rates(self, ccy):
+        json = self.get_json('bleutrade.com/api/v2', '/public/getticker?market=FJC_%s' % ccy)
+        # {'BTC': Decimal(0.1234)}
+        return {ccy: Decimal(json['result'][0]['Last'])}
+    
+    def history_ccys(self):
+        # used for ccy
+        return ['BTC', 'DOGE']
+
+    def historical_rates(self, ccy):
+        history = self.get_json('bleutrade.com/api/v2',
+                               "/public/getmarkethistory?market=FJC_%s&count=100" % ccy)
+        # {"2013-08-16":"2.75","2013-09-13":"2.54331"----,"2013-09-18":"2.509977"}
+        return dict([(h['TimeStamp'][:10], h['Price'])
+                     for h in history['result']])
+
+class Cryptopia(ExchangeBase):
+    def get_rates(self, ccy):
+        json = self.get_json('www.cryptopia.co.nz', '/api/GetMarket/FJC_%s' % ccy)
+        return {ccy: Decimal(json['Data']['LastPrice'])}
+
+class C_Cex(ExchangeBase):
+    def get_rates(self, ccy):
+        json = self.get_json('c-cex.com', '/t/prices.json')
+        return {ccy: Decimal(json[ccy + '-btc']['lastbuy'])}
+    
+    def history_ccys(self):
+        return ['BTC', 'LTC', 'DOGE']
+
+    def historical_rates(self, ccy):
+        history = self.get_json('c-cex.com',
+                               "/t/api_pub.html?a=getmarkethistory&market=FJC-%s&count=10" % ccy)
+        return dict([(h['TimeStamp'][:10], h['Price'])
+                     for h in history['result']])
+    
+
+
+
+
+
 class BitcoinAverage(ExchangeBase):
     def get_rates(self, ccy):
         json = self.get_json('api.bitcoinaverage.com', '/ticker/global/all')

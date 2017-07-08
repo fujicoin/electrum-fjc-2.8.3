@@ -36,15 +36,16 @@ from util import print_error, InvalidPassword
 import ecdsa
 import pyaes
 
-# Bitcoin network constants
+# Fujicoin network constants
 TESTNET = False
 NOLNET = False
-ADDRTYPE_P2PKH = 0
-ADDRTYPE_P2SH = 5
-ADDRTYPE_P2WPKH = 6
-XPRV_HEADER = 0x0488ade4
-XPUB_HEADER = 0x0488b21e
-HEADERS_URL = "https://headers.electrum.org/blockchain_headers"
+ADDRTYPE_P2PKH = 36
+ADDRTYPE_P2SH = 16
+ADDRTYPE_P2WPKH = 128
+XPRV_HEADER = 0x0488ade4 # BIP32 Private_key
+XPUB_HEADER = 0x0488b21e # BIP32 Public_key
+HEADERS_URL = "https://electrum.fujicoin.org/blockchain_headers"
+GENESIS = "adb6d9cfd74075e7f91608add4bd2a2ea636f70856183086842667a1597714a0"
 
 def set_testnet():
     global ADDRTYPE_P2PKH, ADDRTYPE_P2SH, ADDRTYPE_P2WPKH
@@ -74,8 +75,11 @@ def set_nolnet():
 
 ################################## transactions
 
-FEE_STEP = 10000
-MAX_FEE_RATE = 300000
+DUST_SOFT_LIMIT = 100000
+MIN_RELAY_TX_FEE = 100000
+FEE_STEP = 100000
+MAX_FEE_RATE = 1000000
+
 FEE_TARGETS = [25, 10, 5, 2]
 
 COINBASE_MATURITY = 100

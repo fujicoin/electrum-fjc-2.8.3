@@ -89,7 +89,7 @@ class Contacts(dict):
                 'type': 'openalias',
                 'validated': validated
             }
-        raise Exception("Invalid Bitcoin address or alias", k)
+        raise Exception("Invalid Fujicoin address or alias", k)
 
     def resolve_openalias(self, url):
         # support email-style addresses, per the OA standard
