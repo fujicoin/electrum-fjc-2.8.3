@@ -6,7 +6,7 @@ PYQT4_URL=http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.1/PyQt4-4.1
 PYWIN32_URL=http://sourceforge.net/projects/pywin32/files/pywin32/Build%20219/pywin32-219.win32-py2.7.exe/download
 PYINSTALLER_URL=https://pypi.python.org/packages/source/P/PyInstaller/PyInstaller-2.1.zip
 NSIS_URL=http://prdownloads.sourceforge.net/nsis/nsis-2.46-setup.exe?download
-SETUPTOOLS_URL=https://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11.win32-py2.7.exe
+#SETUPTOOLS_URL=https://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11.win32-py2.7.exe
 
 
 ## These settings probably don't need change
@@ -59,8 +59,9 @@ mv PyInstaller-2.1 $WINEPREFIX/drive_c/pyinstaller
 $PYTHON -m pip install pycryptodomex
 
 # Install setuptools
-wget -O setuptools.exe "$SETUPTOOLS_URL"
-wine setuptools.exe
+#wget -O setuptools.exe "$SETUPTOOLS_URL"
+#wine setuptools.exe
+$PYTHON -m pip install -U setuptools
 
 # Install NSIS installer
 wget -q -O nsis.exe "$NSIS_URL"
