@@ -11,7 +11,7 @@ gui/qt/icons_rc.py
 #locale/
 .devlocaltmp/
 *_trial_temp
-packages
+#packages
 env/
 .tox/
 .buildozer/

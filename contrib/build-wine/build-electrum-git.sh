@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # You probably need to update only this link
-ELECTRUM_GIT_URL=git://github.com/spesmilo/electrum.git
+ELECTRUM_GIT_URL=https://github.com/fujicoin/electrum-fjc.git
 BRANCH=master
-NAME_ROOT=electrum
+NAME_ROOT=electrum-FJC
 
 
 # These settings probably don't need any change
