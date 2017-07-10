@@ -1,3 +1,5 @@
+#!/bin/bash
+#add python modules
 export WINEPREFIX=/opt/wine64
 PYHOME=c:/python27
 PYTHON="wine $PYHOME/python.exe -OO -B"
