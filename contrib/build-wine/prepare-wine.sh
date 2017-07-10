@@ -56,12 +56,12 @@ mv PyInstaller-2.1 $WINEPREFIX/drive_c/pyinstaller
 #wine zbar.exe
 
 # install Cryptodome
-$PYTHON -m pip install pycryptodomex
+#$PYTHON -m pip install pycryptodomex
 
 # Install setuptools
 #wget -O setuptools.exe "$SETUPTOOLS_URL"
 #wine setuptools.exe
-$PYTHON -m pip install -U setuptools
+#$PYTHON -m pip install -U setuptools
 
 # Install NSIS installer
 wget -q -O nsis.exe "$NSIS_URL"
