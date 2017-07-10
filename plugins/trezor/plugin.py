@@ -148,7 +148,7 @@ class TrezorCompatiblePlugin(HW_PluginBase):
         if TESTNET:
             return "Testnet"
         else:
-            return "Bitcoin"
+            return "FujiCoin" #BIP-44 basis
 
     def initialize_device(self, device_id, wizard, handler):
         # Initialization method
