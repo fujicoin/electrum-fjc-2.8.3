@@ -3,11 +3,11 @@
 *.swp
 build/
 dist/
-*.egg/
+#*.egg/
 /electrum.py
 contrib/pyinstaller/
-Electrum.egg-info/
-gui/qt/icons_rc.py
+#Electrum.egg-info/
+#gui/qt/icons_rc.py
 #locale/
 .devlocaltmp/
 *_trial_temp
