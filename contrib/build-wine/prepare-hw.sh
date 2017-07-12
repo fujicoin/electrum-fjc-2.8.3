@@ -71,7 +71,7 @@ cd ..
 # checkout 2 commits before v0.7.3, because it fails to build
 # git checkout v0.7.3
 #git checkout 7abe0f0c9026907e9a8db1d231e084df2c175817
-cd python-keepkey
+cd keepkey-git
 $PYTHON setup.py install
 cd ..
 
@@ -84,7 +84,7 @@ cd ..
 #else
 #    git clone -b $BRANCH $BTCHIP_GIT_URL btchip-git
 #fi
-cd btchip-python
+cd btchip-git
 $PYTHON setup.py install
 cd ..
 
