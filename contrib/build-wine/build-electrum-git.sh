@@ -16,7 +16,7 @@ PYTHON="wine $PYHOME/python.exe -OO -B"
 # Let's begin!
 cd `dirname $0`
 set -e
-
+chmod -R 755 tmp/*
 cd tmp
 
 if [ -d "electrum-git" ]; then
