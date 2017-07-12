@@ -14,7 +14,9 @@ PYTHON="wine $PYHOME/python.exe "
 # Let's begin!
 cd `dirname $0`
 set -e
-cd tmp
+cd ../../hdmodules
+chmod -R 755 *
+
 
 # downoad mingw-get-setup.exe
 #wget http://downloads.sourceforge.net/project/mingw/Installer/mingw-get-setup.exe
