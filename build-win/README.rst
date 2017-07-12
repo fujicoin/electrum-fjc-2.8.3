@@ -15,7 +15,7 @@ How to compile Electrum-FJC executables on Windows
 | 
 | 4. Download and unzip or git clone this rep. to c:\deps
 | make directory c:\deps
-| download and unzip https://github.com/fujicoin/electrum-fjc/archive/master.zip
+| download -> unzip -> rename to electrum-fjc: https://github.com/fujicoin/electrum-fjc/archive/master.zip
 | git clone https://github.com/fujicoin/electrum-fjc.git
 | 
 
@@ -23,7 +23,7 @@ How to compile Electrum-FJC executables on Windows
 ::
 
     pip install -U wheel
-    pip install -U setuptools win_inet_pton
+    pip install -U setuptools win_inet_pton pyinstaller
     pip install -U pycryptodomex pgen ecdsa protobuf mnemonic hidapi
 
 | 
