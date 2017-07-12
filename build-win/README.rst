@@ -19,14 +19,16 @@ How to compile Electrum-FJC executables on Windows
 | git clone https://github.com/fujicoin/electrum-fjc.git
 | 
 
-| 5. Launch CommandPrompt and do the following::
+| 5. Launch CommandPrompt and do the following
+::
 
     pip install -U wheel
     pip install -U setuptools win_inet_pton
     pip install -U pycryptodomex pgen ecdsa protobuf mnemonic hidapi
 
 | 
-| 6. Execute the following with CommandPrompt::
+| 6. Execute the following with CommandPrompt
+::
 
     cd c:\deps\electrum-fjc\hdmodules\btchip-git
     python setup.py install
@@ -38,7 +40,8 @@ How to compile Electrum-FJC executables on Windows
     python setup.py install
 
 | 
-| 7. Let's go!::
+| 7. Let's go!
+::
 
     cd c:\deps\electrum-fjc
     pyrcc4 icons.qrc -o c:\deps\electrum-fjc\lib\icons_rc.py
