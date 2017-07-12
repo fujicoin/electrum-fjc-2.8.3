@@ -7,9 +7,7 @@ How to compile Electrum-FJC executables on Windows
 | https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi
 | 
 | 2. Install PyQt4
-| 
 | Environment variables are set automatically.
-| 
 | http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.1/PyQt4-4.11.1-gpl-Py2.7-Qt4.8.6-x32.exe
 | 
 | 3. Install PyWin32
@@ -21,14 +19,14 @@ How to compile Electrum-FJC executables on Windows
 | git clone https://github.com/fujicoin/electrum-fjc.git
 | 
 
-5. Launch CommandPrompt and do the following::
+| 5. Launch CommandPrompt and do the following::
 
-pip install -U wheel
-pip install -U setuptools win_inet_pton
-pip install -U pycryptodomex pgen ecdsa protobuf mnemonic hidapi
+    pip install -U wheel
+    pip install -U setuptools win_inet_pton
+    pip install -U pycryptodomex pgen ecdsa protobuf mnemonic hidapi
 
 | 
-6. Execute the following with CommandPrompt::
+| 6. Execute the following with CommandPrompt::
 
     cd c:\deps\electrum-fjc\hdmodules\btchip-git
     python setup.py install
@@ -40,7 +38,7 @@ pip install -U pycryptodomex pgen ecdsa protobuf mnemonic hidapi
     python setup.py install
 
 | 
-7. Let's go!::
+| 7. Let's go!::
 
     cd c:\deps\electrum-fjc
     pyrcc4 icons.qrc -o c:\deps\electrum-fjc\lib\icons_rc.py
