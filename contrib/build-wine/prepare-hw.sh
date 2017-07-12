@@ -1,21 +1,19 @@
 #!/bin/bash
 
-TREZOR_GIT_URL=git://github.com/trezor/python-trezor.git
-KEEPKEY_GIT_URL=git://github.com/keepkey/python-keepkey.git
-BTCHIP_GIT_URL=git://github.com/LedgerHQ/btchip-python.git
+#TREZOR_GIT_URL=git://github.com/trezor/python-trezor.git
+#KEEPKEY_GIT_URL=git://github.com/keepkey/python-keepkey.git
+#BTCHIP_GIT_URL=git://github.com/LedgerHQ/btchip-python.git
 
-BRANCH=master
+#BRANCH=master
 
 # These settings probably don't need any change
 export WINEPREFIX=/opt/wine64
-
 PYHOME=c:/python27
 PYTHON="wine $PYHOME/python.exe "
 
 # Let's begin!
 cd `dirname $0`
 set -e
-
 cd tmp
 
 # downoad mingw-get-setup.exe
@@ -51,40 +49,40 @@ cd tmp
 #cd ..
 
 # trezor
-TREZOR_URL="https://pypi.python.org/packages/26/80/26c9676cbee58e50e7f7dd6a797931203cf198ff7590f55842d620cd60a8/trezor-0.7.12.tar.gz"
-if ! [ -d "trezor-0.7.12" ]; then
-    wget $TREZOR_URL
-    tar -xvzf trezor-0.7.12.tar.gz
-fi
+#TREZOR_URL="https://pypi.python.org/packages/26/80/26c9676cbee58e50e7f7dd6a797931203cf198ff7590f55842d620cd60a8/trezor-0.7.12.tar.gz"
+#if ! [ -d "trezor-0.7.12" ]; then
+#    wget $TREZOR_URL
+#    tar -xvzf trezor-0.7.12.tar.gz
+#fi
 cd trezor-0.7.12
 $PYTHON setup.py install
 cd ..
 
 #keepkey
-if [ -d "keepkey-git" ]; then
-    cd keepkey-git
-    git checkout master
-    git pull
-    cd ..
-else
-    git clone -b $BRANCH $KEEPKEY_GIT_URL keepkey-git
-fi
-cd keepkey-git
+#if [ -d "keepkey-git" ]; then
+#    cd keepkey-git
+#    git checkout master
+#    git pull
+#    cd ..
+#else
+#    git clone -b $BRANCH $KEEPKEY_GIT_URL keepkey-git
+#fi
+#cd keepkey-git
 # checkout 2 commits before v0.7.3, because it fails to build
 # git checkout v0.7.3
-git checkout 7abe0f0c9026907e9a8db1d231e084df2c175817
+#git checkout 7abe0f0c9026907e9a8db1d231e084df2c175817
 $PYTHON setup.py install
 cd ..
 
 #btchip
-if [ -d "btchip-git" ]; then
-    cd btchip-git
-    git checkout master
-    git pull
-    cd ..
-else
-    git clone -b $BRANCH $BTCHIP_GIT_URL btchip-git
-fi
+#if [ -d "btchip-git" ]; then
+#    cd btchip-git
+#    git checkout master
+#    git pull
+#    cd ..
+#else
+#    git clone -b $BRANCH $BTCHIP_GIT_URL btchip-git
+#fi
 cd btchip-git
 $PYTHON setup.py install
 cd ..

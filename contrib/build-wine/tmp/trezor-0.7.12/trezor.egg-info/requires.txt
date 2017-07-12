@@ -1,0 +1,5 @@
+ecdsa>=0.9
+protobuf>=2.6.1
+mnemonic>=0.17
+setuptools>=19.0
+hidapi>=0.7.99

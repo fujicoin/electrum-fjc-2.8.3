@@ -1,0 +1,14 @@
+Metadata-Version: 1.1
+Name: trezor
+Version: 0.7.12
+Summary: Python library for communicating with TREZOR Hardware Wallet
+Home-page: https://github.com/trezor/python-trezor
+Author: TREZOR
+Author-email: info@trezor.io
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: MacOS :: MacOS X

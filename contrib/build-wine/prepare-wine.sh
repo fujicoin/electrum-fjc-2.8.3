@@ -27,10 +27,10 @@ echo "done"
 
 wine 'wineboot'
 
-echo "Cleaning tmp"
-rm -rf tmp
-mkdir -p tmp
-echo "done"
+#echo "Cleaning tmp"
+#rm -rf tmp
+#mkdir -p tmp
+#echo "done"
 
 cd tmp
 
