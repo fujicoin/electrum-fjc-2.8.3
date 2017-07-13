@@ -101,7 +101,7 @@ Mac OS X
 Windows
 -------
 
-See `contrib/build-wine/README` file.
+See `build-win/README.rst` file.
 
 
 Android
