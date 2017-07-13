@@ -50,4 +50,16 @@ How to compile Electrum-FJC executables on Windows
 
 | 8. Electrum-FJC executable is in dist\ directory
 
-
+|  
+How to make installer
+---------------------
+| 1. Install NSIS
+| http://nsis.sourceforge.net/Download
+| Then you need to set the path in environment variables.
+| 
+| 2. Check version written in electrum.nsis file
+| 
+| 3. Make installer
+| `makensis electrum.nsis`
+| Installer will be putted in dist\
+| 
