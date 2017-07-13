@@ -45,7 +45,7 @@ How to compile Electrum-FJC executables on Windows
     pyrcc4 icons.qrc -o c:\electrum\gui\qt\icons_rc.py
     python setup.py install
     
-    cd c:\electrum\contrib\build-wine
+    cd c:\electrum\build-win
     pyinstaller --noconfirm --ascii --name electrum-FJC-2.8.3.exe -w deterministic.spec
 
 | 8. Electrum-FJC executable is in dist\ directory
