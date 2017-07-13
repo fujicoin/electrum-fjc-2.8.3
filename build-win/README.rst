@@ -23,7 +23,7 @@ How to compile Electrum-FJC executables on Windows
     pip install -U wheel
     pip install -U setuptools win_inet_pton pyinstaller
     pip install -U pycryptodomex pgen ecdsa protobuf mnemonic hidapi
-    pip install -U certifi chardet colorama dnspython idna jsonrpclib pyaes pysocks qrcode requests urllib3
+    pip install -U certifi chardet colorama dnspython idna jsonrpclib pbkdf2 pyaes pysocks qrcode requests six urllib3
 
 | 6. Execute the following with CommandPrompt
 ::
