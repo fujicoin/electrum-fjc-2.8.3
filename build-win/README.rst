@@ -13,44 +13,41 @@ How to compile Electrum-FJC executables on Windows
 | 3. Install PyWin32
 | http://sourceforge.net/projects/pywin32/files/pywin32/Build%20219/pywin32-219.win32-py2.7.exe/download
 | 
-| 4. Download and unzip or git clone this rep. to c:\deps
-| make directory c:\deps
-| download -> unzip -> rename to electrum-fjc: https://github.com/fujicoin/electrum-fjc/archive/master.zip
-| git clone https://github.com/fujicoin/electrum-fjc.git
+| 4. Download and unzip or git clone this rep. to c:\
+| download -> unzip -> rename to c:\electrum\ : https://github.com/fujicoin/electrum-fjc/archive/master.zip
+| git clone https://github.com/fujicoin/electrum-fjc.git  -> rename to c:\electrum\
 | 
-
 | 5. Launch CommandPrompt and do the following
 ::
 
     pip install -U wheel
     pip install -U setuptools win_inet_pton pyinstaller
     pip install -U pycryptodomex pgen ecdsa protobuf mnemonic hidapi
+    pip install -U certifi chardet colorama dnspython idna jsonrpclib pyaes pysocks qrcode requests urllib3
 
-| 
 | 6. Execute the following with CommandPrompt
 ::
 
-    cd c:\deps\electrum-fjc\hdmodules\btchip-git
+    cd c:\electrum\hdmodules\btchip-git
     python setup.py install
     
-    cd c:\deps\electrum-fjc\hdmodules\keepkey-git
+    cd c:\electrum\hdmodules\keepkey-git
     python setup.py install
     
-    cd c:\deps\electrum-fjc\hdmodules\trezor-0.7.12
+    cd c:\electrum\hdmodules\trezor-0.7.12
     python setup.py install
 
-| 
 | 7. Let's go!
 ::
 
-    cd c:\deps\electrum-fjc
-    pyrcc4 icons.qrc -o c:\deps\electrum-fjc\lib\icons_rc.py
-    pyrcc4 icons.qrc -o c:\deps\electrum-fjc\gui\qt\icons_rc.py
+    cd c:\electrum
+    pyrcc4 icons.qrc -o c:\electrum\lib\icons_rc.py
+    pyrcc4 icons.qrc -o c:\electrum\gui\qt\icons_rc.py
+    python setup.py install
     
-    cd c:\deps\electrum-fjc\build-win
+    cd c:\electrum\contrib\build-wine
     pyinstaller --noconfirm --ascii --name electrum-FJC-2.8.3.exe -w deterministic.spec
 
-| 
 | 8. Electrum-FJC executable is in dist\ directory
 
 
