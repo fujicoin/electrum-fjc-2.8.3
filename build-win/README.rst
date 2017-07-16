@@ -64,8 +64,8 @@ How to make installer
 | 2. Check version written in electrum.nsis file
 | 
 | 3. Make installer
-| ``makensis electrum.nsis``
+| ``makensis electrum.nsi``
 | # or for build on x86 OS
-| ``makensis electrum-x86.nsis``
+| ``makensis electrum-x86.nsi``
 | Installer will be putted in dist\
 | 
