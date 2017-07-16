@@ -47,7 +47,11 @@ How to compile Electrum-FJC executables on Windows
     
     cd c:\electrum\build-win
     pyinstaller --noconfirm --ascii --name electrum-FJC-2.8.3.exe -w deterministic.spec
-
+    
+    # or for build on x86 OS
+    cd c:\electrum\build-win
+    pyinstaller --noconfirm --ascii --name electrum-FJC-2.8.3-x86.exe -w deterministic.spec
+    
 | 8. Electrum-FJC executable is in dist\ directory
 
 |  
@@ -60,6 +64,8 @@ How to make installer
 | 2. Check version written in electrum.nsis file
 | 
 | 3. Make installer
-| `makensis electrum.nsis`
+| ``makensis electrum.nsis``
+| # or for build on x86 OS
+| ``makensis electrum-x86.nsis``
 | Installer will be putted in dist\
 | 
